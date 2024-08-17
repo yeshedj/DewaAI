@@ -8,7 +8,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm here to help you with tips on how to be more environmentally friendly and preserve water. How can I assist you today?",
+      content: "Hi! I am MindfulAI. How can I assist you today?",
     },
   ]);
   const [message, setMessage] = useState('');
@@ -82,7 +82,7 @@ export default function Home() {
       flexDirection="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ backgroundColor: '#f4f4f9' }}
+      sx={{ backgroundColor: '#DCC5A7' }}
     >
       {!showChat ? (
         // Landing Page Section
@@ -93,24 +93,24 @@ export default function Home() {
           justifyContent="center"
           alignItems="center"
           sx={{
-            backgroundColor: '#0D47A1',
+            backgroundColor: '#DCC5A7',
             color: 'white',
             textAlign: 'center',
           }}
         >
           <Stack spacing={2} alignItems="center">
             <Typography variant="h2" fontWeight="bold">
-              Welcome to WaterWise
+              Welcome to MindfulAI
             </Typography>
             <Typography variant="h5">
-              Your sustainable water use consultant at your fingertips
+              Thoughtful conversations at your fingertips
             </Typography>
             <Button
               variant="contained"
               sx={{
-                bgcolor: '#1E88E5',
+                bgcolor: '#90CAF9',  
                 '&:hover': {
-                  bgcolor: '#1565C0',
+                  bgcolor: '#1E88E5',
                 },
                 mt: 3,
                 fontSize: '1.2rem',
@@ -146,12 +146,12 @@ export default function Home() {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h6" color='#0D47A1'>WaterWise Chat</Typography>
+              <Typography variant="h6" color='#90CAF9'>MindfulAI Chat</Typography>
               <Button
                 variant="contained"
                 onClick={() => setShowChat(false)}
                 sx={{
-                  bgcolor: '#0D47A1',
+                  bgcolor: '#90CAF9',
                   '&:hover': {
                     bgcolor: '#1E88E5',
                   },

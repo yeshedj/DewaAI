@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "WaterWise Water Use Consultant Chat",
+  title: "MindfulAI: Thoughtful Conversations",
   description: "",
 };
 
