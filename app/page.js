@@ -3,6 +3,8 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
 
+
+
 export default function Home() {
   const [messages, setMessages] = useState([
     {
@@ -35,7 +37,7 @@ export default function Home() {
       case 'angry':
         prompt = "It looks like you're feeling angry. Do you want to talk about what's bothering you?";
         break;
-      // Add more cases for different emotions
+      // add more cases for different emotions
       default:
         prompt = 'How are you feeling today?';
     }
