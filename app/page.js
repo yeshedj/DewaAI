@@ -4,11 +4,10 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
 
 export default function Home() {
-  const [showChat, setShowChat] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I am MindfulAI. How can I assist you today?",
+      content: "Hi! I am DewaAI. How can I assist your feelings today?",
     },
   ]);
   const [message, setMessage] = useState('');
@@ -23,6 +22,29 @@ export default function Home() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const handleIconClick = (emotion) => {
+    let prompt = '';
+    switch (emotion) {
+      case 'sad':
+        prompt = "You seem to be feeling sad. Would you like to tell me more?";
+        break;
+      case 'happy':
+        prompt = "You seem to be feeling happy! That's great to hear! What's making you feel this way?";
+        break;
+      case 'angry':
+        prompt = "It looks like you're feeling angry. Do you want to talk about what's bothering you?";
+        break;
+      // Add more cases for different emotions
+      default:
+        prompt = 'How are you feeling today?';
+    }
+
+    setMessages((messages) => [
+      ...messages,
+      { role: 'assistant', content: prompt }
+    ]);
+  };
 
   const sendMessage = async () => {
     if (!message.trim() || isLoading) return;
@@ -77,169 +99,145 @@ export default function Home() {
   return (
     <Box
       width="100vw"
-      height="100vh"
+      height="120vh"
       display="flex"
       flexDirection="column"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ backgroundColor: '#DCC5A7' }}
+      sx={{ backgroundColor: '#80CBC4' }}
     >
-      {!showChat ? (
-        // Landing Page Section
-        <Box
-          width="100%"
-          height="60vh"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            backgroundColor: '#DCC5A7',
-            color: 'white',
-            textAlign: 'center',
-          }}
+      <Box
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        mt={4}
+      >
+        <Stack
+          direction={'column'}
+          width="500px"
+          height="600px"
+          borderRadius={3}
+          boxShadow={3}
+          bgcolor="white"
+          p={2}
+          spacing={3}
         >
-          <Stack spacing={2} alignItems="center">
-            <Typography variant="h2" fontWeight="bold">
-              Welcome to MindfulAI
-            </Typography>
-            <Typography variant="h5">
-              Thoughtful conversations at your fingertips
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                bgcolor: '#90CAF9',  
-                '&:hover': {
-                  bgcolor: '#1E88E5',
-                },
-                mt: 3,
-                fontSize: '1.2rem',
-                padding: '10px 20px',
-              }}
-              onClick={() => setShowChat(true)}
-            >
-              Start Chatting
-            </Button>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Typography variant="h6" color='#80CBC4'>DewaAI</Typography>
+          </Box>
+
+          {/* Emotion Icons */}
+          <Stack
+            direction={'row'}
+            justifyContent="space-around"
+            alignItems="center"
+            mb={2}
+          >
+            <img 
+              src="/icons/sad-icon.JPEG" 
+              alt="Sad" 
+              style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
+              onClick={() => handleIconClick('sad')}
+            />
+            <img 
+              src="/icons/happy-icon.JPEG" 
+              alt="Happy" 
+              style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
+              onClick={() => handleIconClick('happy')}
+            />
+            <img 
+              src="/icons/angry-icon.JPEG" 
+              alt="Angry" 
+              style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
+              onClick={() => handleIconClick('angry')}
+            />
+            {/* Add more icons for other emotions */}
           </Stack>
-        </Box>
-      ) : (
-        // Chat Section
-        <Box
-          width="100%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          mt={4}
-        >
+
           <Stack
             direction={'column'}
-            width="500px"
-            height="700px"
-            borderRadius={3}
-            boxShadow={3}
-            bgcolor="white"
-            p={2}
-            spacing={3}
+            spacing={2}
+            flexGrow={1}
+            overflow="auto"
+            maxHeight="100%"
           >
-            <Stack
-              direction={'row'}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6" color='#90CAF9'>MindfulAI Chat</Typography>
-              <Button
-                variant="contained"
-                onClick={() => setShowChat(false)}
-                sx={{
-                  bgcolor: '#90CAF9',
-                  '&:hover': {
-                    bgcolor: '#1E88E5',
-                  },
-                }}
+            {messages.map((message, index) => (
+              <Box
+                key={index}
+                display="flex"
+                justifyContent={
+                  message.role === 'assistant' ? 'flex-start' : 'flex-end'
+                }
               >
-                Back to Home
-              </Button>
-            </Stack>
-            <Stack
-              direction={'column'}
-              spacing={2}
-              flexGrow={1}
-              overflow="auto"
-              maxHeight="100%"
-            >
-              {messages.map((message, index) => (
                 <Box
-                  key={index}
-                  display="flex"
-                  justifyContent={
-                    message.role === 'assistant' ? 'flex-start' : 'flex-end'
-                  }
+                  sx={{
+                    bgcolor: message.role === 'assistant' ? '#BDBDBD' : '#BDBDBD',
+                    color: 'white',
+                    borderRadius: 16,
+                    p: 3,
+                  }}
                 >
-                  <Box
-                    sx={{
-                      bgcolor: message.role === 'assistant' ? '#0D47A1' : '#1565C0',
-                      color: 'white',
-                      borderRadius: 16,
-                      p: 3,
-                    }}
-                  >
-                    {message.content.split('\n').map((line, i) => (
-                      <p key={i} style={{ margin: 0 }}>{line}</p>
-                    ))}
-                  </Box>
+                  {message.content.split('\n').map((line, i) => (
+                    <p key={i} style={{ margin: 0 }}>{line}</p>
+                  ))}
                 </Box>
-              ))}
-              <div ref={messagesEndRef} />
-            </Stack>
-            <Stack direction={'row'} spacing={2}>
-              <TextField
-                label="Message"
-                bgcolor="white"
-                fullWidth
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={isLoading}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: '#0D47A1',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: '#1E88E5',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#1565C0',
-                    },
-                  },
-                  '& .MuiInputLabel-root': {
-                    color: '#0D47A1',
-                  },
-                  '& .MuiInputLabel-root.Mui-focused': {
-                    color: '#1E88E5',
-                  },
-                  '& .MuiInputBase-input': {
-                    color: 'black',
-                  },
-                }}
-              />
-              <Button
-                variant="contained"
-                onClick={sendMessage}
-                disabled={isLoading}
-                sx={{
-                  bgcolor: '#0D47A1',
-                  '&:hover': {
-                    bgcolor: '#1E88E5',
-                  },
-                }}
-              >
-                {isLoading ? 'Sending...' : 'Send'}
-              </Button>
-            </Stack>
+              </Box>
+            ))}
+            <div ref={messagesEndRef} />
           </Stack>
-        </Box>
-      )}
+          <Stack direction={'row'} spacing={2}>
+            <TextField
+              label="Message"
+              bgcolor="white"
+              fullWidth
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={isLoading}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#80CBC4',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#BDBDBD',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#BDBDBD',
+                  },
+                },
+                '& .MuiInputLabel-root': {
+                  color: '#80CBC4',
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#BDBDBD',
+                },
+                '& .MuiInputBase-input': {
+                  color: 'black',
+                },
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={sendMessage}
+              disabled={isLoading}
+              sx={{
+                bgcolor: '#80CBC4',
+                '&:hover': {
+                  bgcolor: '#BDBDBD',
+                },
+              }}
+            >
+              {isLoading ? 'Sending...' : 'Send'}
+            </Button>
+          </Stack>
+        </Stack>
+      </Box>
     </Box>
   );
 }
