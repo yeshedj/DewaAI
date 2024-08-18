@@ -131,7 +131,7 @@ export default function Home() {
             <Typography variant="h6" color='#80CBC4'>DewaAI</Typography>
           </Box>
 
-          {/* Emotion Icons */}
+          {/* emotion Icons */}
           <Stack
             direction={'row'}
             justifyContent="space-around"
@@ -139,24 +139,25 @@ export default function Home() {
             mb={2}
           >
             <img 
-              src="/icons/sad-icon.JPEG" 
+              src="icons/sad-icon.png" 
               alt="Sad" 
               style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
               onClick={() => handleIconClick('sad')}
             />
             <img 
-              src="/icons/happy-icon.JPEG" 
+              src="icons/happy-icon.png" 
               alt="Happy" 
               style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
               onClick={() => handleIconClick('happy')}
             />
             <img 
-              src="/icons/angry-icon.JPEG" 
+              src="icons/angry-icon.png" 
               alt="Angry" 
               style={{ cursor: 'pointer', width: '40px', height: '40px' }} 
               onClick={() => handleIconClick('angry')}
             />
-            {/* Add more icons for other emotions */}
+
+
           </Stack>
 
           <Stack
